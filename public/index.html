@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>send to server</title>
+    <!-- <script>
+        document.getElementById('btn').disabled = true;
+    </script> -->
+    <style>
+        body{
+            background-color: rgb(243, 215, 250);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        input{
+            border: 2px solid #000;
+        }
+        input:hover { 
+            box-shadow: 1px 1px 2px 1px rgb(187, 187, 187);
+        }
+        button{
+            font-style: bold;
+            font-weight: bold;
+        }
+        button:hover{
+            box-shadow: 1px 1px 2px 1px rgb(187, 187, 187);
+        }
+    </style>
+</head>
+<body align='center'>
+    <h1>hello, world</h1>
+    <input id="inputValue"><button  id="btn" >Send</button>
+    <script>
+        window.onload = () =>{
+            freezeButton();
+        }
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', function() {
+            let value = document.getElementById('inputValue').value;
+            if (!value) {
+                setTimeout(()=>{
+                    document.getElementById('inputValue').style.border = '2px solid black';
+                    document.getElementById('inputValue').style.background = 'transparent';
+                },1000)
+                document.getElementById('inputValue').style.border = '2px solid red';
+                document.getElementById('inputValue').style.background = 'pink';
+            } else {
+                update();
+                freezeButton();
+            }
+        });
+        function freezeButton(){
+            btn.disabled = true;
+            let count = 0;
+            let intervalId = setInterval(()=>{
+                count++;
+                btn.innerText = `Wait... ${count}`
+                count == 5 ? unfreezeButton() : false;
+            },1000) 
+            function unfreezeButton(){
+                clearInterval(intervalId)
+                btn.disabled = false;
+                btn.innerText = "Send";
+            }
+        }
+        function update(val){
+            let value = document.getElementById('inputValue').value;
+            fetch('/send_msg', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        }
+
+    </script>
+</body>
+</html>
