@@ -1,12 +1,22 @@
 const express = require("express");
 const app = express();
-const fs = require('fs');
+const mysql = require("mysql")
+
+const conn = mysql.createConnection({
+  host:"sql6.freemysqlhosting.net",
+  user:"sql6705815",
+  database:"sql6705815",
+  password:"A6nasm2rgr",
+})
 
 var bodyParser = require('body-parser')
 
 let a = [];
 
-// parse application/x-www-form-urlencoded
+
+
+
+
 var jsonParser = bodyParser.json()
 
 app.use(express.static('public'));
@@ -17,22 +27,42 @@ app.get("/.well-known/vercel/flags",(req,res) => res.send('yaapi)))'))
 
 app.post('/send_msg', jsonParser, (req, res) => {
     const message = req.body.message;
-    a.push(message);
-    res.status(200).send({
-      res: 'successful',
-      restwo: a,
-      resthree: message
+    conn.connect(err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('successful');
+            conn.query('SELECT * FROM `chatdb`', (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    a.push(result);
+                    conn.end(); 
+                    res.status(200).send({
+                        res: 'successful',
+                        restwo: message,
+                        resthree: a[0][0].chatdbtest
+                    });
+                }
+            });
+        }
     });
-  });
-
+});
 app.post('/get_chat', (req, res) => {
-    // let messages = [1,10,100,1000,10000,2,20,200,2000,'helloo']
+    conn.query('SELECT * FROM `chatdb`', (err,result)=>{
+      if(err) {
+          console.log(err)
+      } else {
+          res.status(200)
+          res.send({ res : `[${result}]`});   
+      }
+    })
     res.status(200)
-    res.send({ res : a });
+    res.send({ res : a });                                     
 
 });
 
 
-app.listen(3001, () => console.log("Server ready on port 3000."));
+app.listen(4000, () => console.log("Server ready on port 3000."));
 
 module.exports = app;
