@@ -7,6 +7,7 @@ const conn = mysql.createConnection({
   user:"sql6705815",
   database:"sql6705815",
   password:"A6nasm2rgr",
+  charset: "utf8"
 })
 const pool = mysql.createPool({
     connectionLimit: 100,
@@ -14,6 +15,7 @@ const pool = mysql.createPool({
     user:"sql6705815",
     database:"sql6705815",
     password:"A6nasm2rgr",
+    charset: "utf8"
 })
 
 var bodyParser = require('body-parser')
@@ -28,57 +30,37 @@ app.get("/", (req, res) => res.render("index"));
 app.get("/chat", (req, res) => res.render('chat')); 
 app.get("/.well-known/vercel/flags",(req,res) => res.send('yaapi)))'))
 
-app.post('/send_msg' , jsonParser , (req,res)=>{
-    const message = req.body.message;
-    let mess = `, ${message}`;
+app.post('/send_msg', jsonParser, (req, res) => {
+    let message = req.body.message;
     pool.getConnection((error, connection) => {
-        
         if (error) throw error;
-
-        connection.query(`SELECT * FROM chatdb`, (error, results,)=>{
-            if (error) throw error;
+        connection.query('INSERT INTO `chat`(`chat`) VALUES (?)', [message], err => {
+            if (err) throw err;
             res.status(200).send({
                 res: 'successful',
-                restwo: mess,
-                resthree: results
+                restwo: message
+            });
+            connection.destroy();
+        });
+    });
+});
+app.post('/get_chat', (req, res) => {
+    pool.getConnection((error, connection) => {
+        if (error) throw error;
+        connection.query('SELECT * FROM `chat`'  ,(err,result) => {
+            if (err) throw err;
+            let b = result;
+            let a = [];
+            b.forEach(element => {
+                a.push(element.chat);
+            });
+            res.status(200).send({
+                res: a                                                                                       
             });
             connection.destroy();
         });
 
     });
-});
-// app.post('/send_msg', jsonParser, (req, res) => {
-//     conn.connect()
-//     const message = req.body.message;
-//     let mess = `, ${message}`;
-//     pool.getConnection(function(err, con) {
-//         conn.query(`SELECT * FROM chatdb `, (err, result) => {
-//         a.push(result)
-//         let b = [];
-//         b.push(1)
-            
-//         res.status(200).send({
-//             res: 'successful',
-//             restwo: mess,
-//             resthree: a,
-//             resfour : b
-//         });
-//     });
-// });
-// });
-
-app.post('/get_chat', (req, res) => {
-    conn.query('SELECT * FROM `chatdb`', (err,result)=>{
-      if(err) {
-          console.log(err)
-      } else {
-          res.status(200)
-          res.send({ res : `[${result}]`});   
-      }
-    })
-    res.status(200)
-    res.send({ res : a });                                     
-
 });
 
 
