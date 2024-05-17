@@ -1,29 +1,19 @@
+require('dotenv').config()
 const express = require("express");
 const app = express();
 const mysql = require("mysql")
 
-const conn = mysql.createConnection({
-  host:"sql6.freemysqlhosting.net",
-  user:"sql6705815",
-  database:"sql6705815",
-  password:"A6nasm2rgr",
-  charset: "utf8"
-})
 const pool = mysql.createPool({
     connectionLimit: 100,
-    host:"sql6.freemysqlhosting.net",
-    user:"sql6705815",
-    database:"sql6705815",
-    password:"A6nasm2rgr",
-    charset: "utf8"
+    host:       process.env.HOST,
+    user:       process.env.USER,
+    database:   process.env.DATABASE,
+    password:   process.env.PASSWORD,
+    charset:    "utf8"
 })
 
 var bodyParser = require('body-parser')
-
-let a = [];
-
 var jsonParser = bodyParser.json()
-
 app.use(express.static('public'));
 
 app.get("/", (req, res) => res.render("index"));
@@ -33,7 +23,7 @@ app.get("/.well-known/vercel/flags",(req,res) => res.send('yaapi)))'))
 app.post('/send_msg', jsonParser, (req, res) => {
     let message = req.body.message;
     pool.getConnection((error, connection) => {
-        if (error) throw error;
+        if (error) throw error;                                                                                                                                                                                                
         connection.query('INSERT INTO `chat`(`chat`) VALUES (?)', [message], err => {
             if (err) throw err;
             res.status(200).send({
@@ -44,6 +34,7 @@ app.post('/send_msg', jsonParser, (req, res) => {
         });
     });
 });
+
 app.post('/get_chat', (req, res) => {
     pool.getConnection((error, connection) => {
         if (error) throw error;
@@ -53,7 +44,7 @@ app.post('/get_chat', (req, res) => {
             let a = [];
             b.forEach(element => {
                 a.push(element.chat);
-            });
+            });                             
             res.status(200).send({
                 res: a                                                                                       
             });
@@ -63,7 +54,31 @@ app.post('/get_chat', (req, res) => {
     });
 });
 
-
+app.post('/get_length', (req, res) => { 
+    pool.getConnection((error, connection) => {
+        if (error) throw error;
+        connection.query('SELECT COUNT(*) FROM `chat`'  ,(err,result) => {
+            if (err) throw err;
+            let b = result;                           
+            res.status(200).send({
+                res: b                                                                                      
+            });
+            connection.destroy();
+        });
+    });
+});
+app.post('/del_msg', (req, res) => { 
+    pool.getConnection((error, connection) => {
+        if (error) throw error;
+        connection.query('DELETE FROM `chat` LIMIT 1'  ,(err,result) => {
+            if (err) throw err;                   
+            res.status(200).send({
+                res: 'successful delete'                                                                                     
+            });
+            connection.destroy();
+        });
+    });
+});
 app.listen(4000, () => console.log("Server ready on port 3000."));
 
 module.exports = app;
