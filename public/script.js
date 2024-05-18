@@ -28,7 +28,7 @@ function freezeButton(){
     let intervalId = setInterval(()=>{
         count++;
         btn.innerText = `Подождите... ${count}`
-        count == 7 ? unfreezeButton() : false;
+        count == 10 ? unfreezeButton() : false;
     },1000) 
     function unfreezeButton(){
         clearInterval(intervalId)
