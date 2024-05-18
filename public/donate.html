@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="donate.css">
+    <title>донат</title>
+</head>
+<body>
+    <header class="header">
+        <h1 id="welc">Чат</h1>
+        <a href="index.html"><p>Вернуться назад в чат </p></a>
+    </header>
+    <div class="wrapper">
+        <h1>1. на данный момент чат хостится на бесплатной mysql базе данных</h1>
+        <h1>2. я поставил авто-удаление первых сообщений после отметки в 400 таких строк<span class="hooks">(посмотрю сколько выдержит бд,может изменю)</span></h1>
+        <h1>3. у меня нет лишних 800 рублей на покупку сервера((</h1>
+        <hr>
+        <h1>по этому если вы хотите мне задонатить - <span class="card">2202206131495090</span> (cбер) </h1>
+        <h1>я буду благодарен - <a class="remoute" href="https://t.me/katuagh">связь со мной для предложений</a></h1>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 чат сделанный на коленке</p>
+    </footer>
+    <script>
+        document.getElementById('welc').innerText = `Привет , ${localStorage.getItem('nick')} !`
+    </script>
+</body>
+</html>
