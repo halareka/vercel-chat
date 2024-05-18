@@ -38,6 +38,11 @@ function freezeButton(){
 }
 function addMessage(){
     let inp = document.getElementById('message');
+    let inpNick = document.getElementById('nickname');
+    if(!inpNick.value){
+        setTimeout(()=> inpNick.style.background = '#FFFFFF', 1000)
+        inpNick.style.background = '#ffb3b3'
+    }
     if(!inp.value){
         setTimeout(()=> inp.style.background = '#FFFFFF', 1000)
         inp.style.background = '#ffb3b3'

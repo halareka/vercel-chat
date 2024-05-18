@@ -8,12 +8,33 @@ a{
     text-decoration: none ;
 }
 h1{
-    font-size: 20px;
+    font-size: 5.5vw;
+}
+.a{
+    color: #ffffff;
+    text-decoration: none ;
+}
+a:hover{
+    color: #d1a3a3;
+    cursor: pointer;
+}
+p{
+    font-size: 17px;
+    transition: 0.2s;
+    margin: 0;
+    color: #ffffff;
+}
+p:hover{
+    color: #d1a3a3;
+    cursor: pointer;
+}
+#welc{
+    font-size: 25px;
+    margin: 10px 0 10px 0;
 }
 .header {
     background-color: #444444;
-    padding: 20px;
-    
+    /* padding: 20px; */
     padding-left: 0;
     text-align: center;
     position: fixed;
@@ -22,25 +43,11 @@ h1{
     width: 100%;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
     z-index: 10;
-    & h1{
-        font-size: 2em;
-        margin: 10px 0 10px 0;
-    }
-    & p{
-        font-size: 17px;
-        transition: 0.2s;
-        margin: 0;
-        color: #ffffff;
-    }
-    & p:hover{
-        color: #d1a3a3;
-        cursor: pointer;
-    }
 }
 .wrapper{
     width: 80%;
     margin: 0 auto; 
-    margin-top: 160px;
+    margin-top: 120px;
 }
 .card{
     color: aquamarine;
@@ -71,12 +78,12 @@ h1{
 
     .footer {
         padding: 10px;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
-@media (max-width: 480px) {
-    .footer {
-        padding: 10px;
-    }
 
+.head-p{
+    margin: 10px;
 }
