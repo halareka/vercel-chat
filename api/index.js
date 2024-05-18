@@ -24,7 +24,7 @@ app.post('/send_msg', jsonParser, (req, res) => {
     let message = req.body.message;
     pool.getConnection((error, connection) => {
         if (error) throw error;                                                                                                                                                                                                
-        connection.query('INSERT INTO `chat`(`chat`) VALUES (?)', [message], err => {
+        connection.query('INSERT INTO `chatt`(`chatt`) VALUES (?)', [message], err => {
             if (err) throw err;
             res.status(200).send({
                 res: 'successful',
@@ -38,12 +38,12 @@ app.post('/send_msg', jsonParser, (req, res) => {
 app.post('/get_chat', (req, res) => {
     pool.getConnection((error, connection) => {
         if (error) throw error;
-        connection.query('SELECT * FROM `chat`'  ,(err,result) => {
+        connection.query('SELECT * FROM `chatt`'  ,(err,result) => {
             if (err) throw err;
             let b = result;
             let a = [];
             b.forEach(element => {
-                a.push(element.chat);
+                a.push(element.chatt);
             });                             
             res.status(200).send({
                 res: a                                                                                       
@@ -57,7 +57,7 @@ app.post('/get_chat', (req, res) => {
 app.post('/get_length', (req, res) => { 
     pool.getConnection((error, connection) => {
         if (error) throw error;
-        connection.query('SELECT COUNT(*) FROM `chat`'  ,(err,result) => {
+        connection.query('SELECT COUNT(*) FROM `chatt`'  ,(err,result) => {
             if (err) throw err;
             let b = result;                           
             res.status(200).send({
@@ -70,7 +70,7 @@ app.post('/get_length', (req, res) => {
 app.post('/del_msg', (req, res) => { 
     pool.getConnection((error, connection) => {
         if (error) throw error;
-        connection.query('DELETE FROM `chat` LIMIT 1'  ,(err,result) => {
+        connection.query('DELETE FROM `chatt` LIMIT 1'  ,(err,result) => {
             if (err) throw err;                   
             res.status(200).send({
                 res: 'successful delete'                                                                                     
