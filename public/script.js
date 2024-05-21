@@ -16,7 +16,7 @@ window.onload =  () => {
     }
     document.getElementById('welc').innerText = `Привет , ${localStorage.getItem('nick')} !`
 }
-//nickname_autofill
+//клиент и логика обработки
 function updateNickname(){
     let nick = document.getElementById('nickname').value;
     localStorage.setItem('nick' , nick )
@@ -52,13 +52,14 @@ function addMessage(){
             inp.value = '';
             return 0;
         }
-        let valueOnInput = `<b>${localStorage.getItem('nick')}</b>:<br>${inp.value}`;
+        let valueOnInput = `${localStorage.getItem('nick')}:${inp.value}`;
         // console.log(valueOnInput)
         inp.value = ''
         freezeButton()
         sendMessage(valueOnInput)
     }
 }
+//основа чата
 function sendMessage(value){
     fetch('/send_msg', {
         method: 'POST',
@@ -102,16 +103,7 @@ function getMessage(val){
     });
 
 }
-function revert(arr){
-    
-    arr.forEach(el => {
-        const chatElement = `<li class="message"><span class="content">${el}</span></li>`;
-        document.getElementById('messages').innerHTML += chatElement;
-    });
-}
-
-setInterval(updateCli , 10000)
-
+// что-то вроде BAD реализации веб-сокета)))
 function updateCli(){
     // console.log(lastLength + '<--- длина на клиенте')
     fetch('/get_length', {
@@ -137,6 +129,14 @@ function updateCli(){
         console.error('Ошибка:', error);
     });
 }
+//логика и клиентская часть в основном
+function revert(arr){
+    arr.forEach(el => {
+        el = breakAndPaste(el)
+        const chatElement = `<li class="message"><span class="content">${el}</span></li>`;
+        document.getElementById('messages').innerHTML += chatElement;
+    });
+}
 function deleteLastMsg(){
     fetch('/del_msg', {
         method: 'POST',
@@ -153,3 +153,9 @@ function deleteLastMsg(){
         console.error('Ошибка:', error);
     });
 }
+function breakAndPaste(inputStr) {
+    let parts = inputStr.split(':');
+    let newStr = `<b>${parts[0]}</b>:<br>${parts[1]}`;
+    return newStr;
+}
+setInterval(updateCli , 10000)
