@@ -52,6 +52,7 @@ b{
     width: 100%;
 }
 .messages {
+    width: 100%;
     list-style: none;
     padding: 0;
     flex: 1;
@@ -60,7 +61,10 @@ b{
     margin-bottom: 10px;
     display: flex;
     align-items: flex-start;
-    max-width: max-content;
+    
+    max-width: 90%;
+    width: max-content;
+
     background-color: #e6e6e6;
     padding: 10px;
     color: #444444;
