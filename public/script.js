@@ -52,7 +52,7 @@ function addMessage(){
             inp.value = '';
             return 0;
         }
-        let valueOnInput = `${localStorage.getItem('nick')}:${inp.value}`;
+        let valueOnInput = `${localStorage.getItem('nick')}—${inp.value}`;
         // console.log(valueOnInput)
         inp.value = ''
         freezeButton()
@@ -154,8 +154,8 @@ function deleteLastMsg(){
     });
 }
 function breakAndPaste(inputStr) {
-    let parts = inputStr.split(':');
-    let newStr = `<b>${parts[0]}</b>:<br>${parts[1]}`;
+    let parts = inputStr.split('—');
+    let newStr = `<b>${parts[0]}</b> :<br>${parts[1]}`;
     return newStr;
 }
 setInterval(updateCli , 10000)

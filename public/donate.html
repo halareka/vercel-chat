@@ -26,5 +26,14 @@
             <p>&copy; 2024 чат сделанный на коленке</p>
         </div>
     </div>
+    <script>
+        window.onload =  () => {
+            if(localStorage.getItem('nick')){
+                document.getElementById('welc').innerText = `Привет , ${localStorage.getItem('nick')} !`
+            }else{
+                document.getElementById('welc').innerText = `Привет , Аноним !`
+            }
+        }
+    </script>
 </body>
 </html>
