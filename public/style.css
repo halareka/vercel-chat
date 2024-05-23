@@ -17,6 +17,16 @@ b{
 img{
     width: 100%;
 }
+.wrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: stretch;
+    
+    min-height: 100%;
+}
 .header{
     display: flex;
     justify-content: center;
@@ -38,6 +48,7 @@ img{
 .main {
     margin: 0 auto;
     margin-top: 14px;
+    margin-bottom: 14px;
     max-width: 800px;
     width: 80%;
     padding: 20px;
@@ -104,8 +115,8 @@ img{
     text-align: center;
     background-color: #444444;
     width: 100%;
-    position: absolute;
-    bottom: 0;
+    /* position: absolute;
+    bottom: 0; */
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 10px 10px 0 0 ;
@@ -139,4 +150,14 @@ img{
     .input-area {
         flex-direction: column;
     }
+}
+.header,
+.footer {
+  flex: 0 1 auto;
+  
+  /* background-color: #fcc; */
+}
+.main {
+    flex: 1 1 auto;
+    /* background-color: #cfc; */
 }
