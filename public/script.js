@@ -47,7 +47,7 @@ function addMessage(){
         setTimeout(()=> inp.style.background = '#FFFFFF', 1000)
         inp.style.background = '#ffb3b3'
     }else{
-        if(inp.value.length > 200){
+        if(inp.value.length > 350){
             alert('слишком длинное сообщение!!!у нас и так база данных на 5 мегабайт!(')
             inp.value = '';
             return 0;
