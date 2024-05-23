@@ -14,6 +14,9 @@ h1,h2,h3,h4,h5,h6,p,a{
 b{
     color: rgb(73, 50, 73);
 }
+img{
+    width: 100%;
+}
 .header{
     display: flex;
     justify-content: center;
